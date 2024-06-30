@@ -1,8 +1,5 @@
 <?php namespace Anomaly\PostsModule\Post;
 
-use Anomaly\PostsModule\Category\Command\PurgeCategoryCache;
-use Anomaly\PostsModule\Post\Command\PurgeIndexCache;
-use Anomaly\PostsModule\Post\Command\PurgePostCache;
 use Anomaly\PostsModule\Post\Contract\PostInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Entry\EntryObserver;
@@ -36,8 +33,6 @@ class PostObserver extends EntryObserver
      */
     public function saving(EntryInterface $entry)
     {
-        dispatch_sync(new PurgePostCache($entry));
-
         parent::saving($entry);
     }
 
@@ -48,13 +43,6 @@ class PostObserver extends EntryObserver
      */
     public function saved(EntryInterface $entry)
     {
-        dispatch_sync(new PurgePostCache($entry));
-        dispatch_sync(new PurgeIndexCache($entry));
-
-        if ($category = $entry->getCategory()) {
-            dispatch_sync(new PurgeCategoryCache($category));
-        }
-
         parent::saved($entry);
     }
 }

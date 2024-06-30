@@ -1,7 +1,6 @@
 <?php namespace Anomaly\PostsModule\Category\Command;
 
 use Anomaly\PostsModule\Category\Contract\CategoryInterface;
-use Anomaly\Streams\Platform\Http\Command\PurgeHttpCache;
 
 /**
  * Class PurgeCategoryCache
@@ -34,7 +33,6 @@ class PurgeCategoryCache
      */
     public function handle()
     {
-        dispatch_sync(new PurgeHttpCache($this->category->route('view')));
     }
 
 }
