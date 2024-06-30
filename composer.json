@@ -1,5 +1,5 @@
 {
-    "name": "anomaly/posts-module",
+    "name": "visiosoft/posts-module",
     "type": "streams-addon",
     "description": "A versatile articles and posts manager.",
     "keywords": [
